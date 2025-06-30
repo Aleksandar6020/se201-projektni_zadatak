@@ -1,5 +1,4 @@
 package com.example.se201projektni_zadatakaleksandarrozkov6020.server;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,7 +70,7 @@ public class Server {
             String req = in.readLine();
             if(req == null || req.isEmpty()) return;
 
-            String[] split = req.split("=", 2);
+            String[] split = req.split("=");
             if(split.length < 2) return;
             String crud = split[0];
             System.out.println(crud);
@@ -176,42 +175,30 @@ public class Server {
         }
     }
 
-    private static String Read(String input) {
+    private static String Read(String table) {
         try {
-            String sql;
-
-            // Разделяем имя таблицы и условие (если есть)
-            if (input.toLowerCase().contains(" where ")) {
-                String[] parts = input.split("(?i) where "); // split by 'where' case-insensitively
-                String table = parts[0].trim();
-                String condition = parts[1].trim();
-                sql = "SELECT * FROM " + table + " WHERE " + condition;
-            } else {
-                sql = "SELECT * FROM " + input.trim();
-            }
-
-            System.out.println("UNSAFE SQL: " + sql);
-
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+            String sql = "SELECT * FROM " + table;
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
             int colum = rs.getMetaData().getColumnCount();
-            StringBuilder back = new StringBuilder();
-            while (rs.next()) {
-                for (int i = 1; i <= colum; i++) {
-                    back.append(rs.getString(i));
-                    if (i < colum) back.append("|||");
+            String back = "";
+            while (rs.next()){
+                for (int i  = 1; i <= colum;i++){
+                    back += rs.getString(i);
+                    if(i < colum){
+                        back += "|||";
+                    }
                 }
-                back.append("###");
+                back += "###";
             }
 
-            return back.toString().trim();
+            return back.trim();
         } catch (SQLException e) {
             e.printStackTrace();
             return "Read Error";
         }
     }
-
 
     private static String Update(String req) {
         try {

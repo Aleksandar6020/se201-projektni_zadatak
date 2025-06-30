@@ -47,10 +47,11 @@ public class TablePane {
             if (phone.isEmpty()) {
                 loadAllClients();
                 Main.showSuccess("Loaded all clients.");
-            } else {
+            } else if (!ValidationHelper.isValidPhone(phone)) {
+                Main.showAlert("Invalid phone number format.");
+            }else {
                 loadClientByPhone(phone);
             }
-
         });
 
         loadAllClients();
@@ -80,17 +81,17 @@ public class TablePane {
     private void loadClientByPhone(String phone) {
         try {
             clientList.clear();
-            String response = Client.Read("client WHERE phone = '" + phone + "'");
+            String response = Client.Read("client");
             boolean found = false;
             for (String row : response.split("###")) {
                 String[] fields = row.split("\\|\\|\\|");
-                if (fields.length >= 4) {
+                if (fields.length >= 4 && fields[2].equals(phone)) {
                     clientList.add(new ClientModel(fields[0], fields[1], fields[2], fields[3]));
                     found = true;
                 }
             }
             if (found) {
-                Main.showSuccess("Client(s) found.");
+                Main.showSuccess("Client found.");
             } else {
                 Main.showAlert("No client found with that phone number.");
             }
@@ -98,5 +99,4 @@ public class TablePane {
             ex.printStackTrace();
         }
     }
-
 }
