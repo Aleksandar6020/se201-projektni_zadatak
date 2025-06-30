@@ -71,7 +71,7 @@ public class Server {
             String req = in.readLine();
             if(req == null || req.isEmpty()) return;
 
-            String[] split = req.split("=");
+            String[] split = req.split("=", 2);
             if(split.length < 2) return;
             String crud = split[0];
             System.out.println(crud);
@@ -176,11 +176,22 @@ public class Server {
         }
     }
 
-    private static String Read(String table) {
+    private static String Read(String input) {
         try {
-            // UNSAFE version for demonstration
-            String sql = "SELECT * FROM " + table;
+            String sql;
+
+            // Разделяем имя таблицы и условие (если есть)
+            if (input.toLowerCase().contains(" where ")) {
+                String[] parts = input.split("(?i) where "); // split by 'where' case-insensitively
+                String table = parts[0].trim();
+                String condition = parts[1].trim();
+                sql = "SELECT * FROM " + table + " WHERE " + condition;
+            } else {
+                sql = "SELECT * FROM " + input.trim();
+            }
+
             System.out.println("UNSAFE SQL: " + sql);
+
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
@@ -200,6 +211,7 @@ public class Server {
             return "Read Error";
         }
     }
+
 
     private static String Update(String req) {
         try {

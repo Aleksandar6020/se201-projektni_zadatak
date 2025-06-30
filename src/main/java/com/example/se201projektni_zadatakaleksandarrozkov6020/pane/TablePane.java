@@ -80,17 +80,17 @@ public class TablePane {
     private void loadClientByPhone(String phone) {
         try {
             clientList.clear();
-            String response = Client.Read("client");
+            String response = Client.Read("client WHERE phone = '" + phone + "'");
             boolean found = false;
             for (String row : response.split("###")) {
                 String[] fields = row.split("\\|\\|\\|");
-                if (fields.length >= 4 && fields[2].equals(phone)) {
+                if (fields.length >= 4) {
                     clientList.add(new ClientModel(fields[0], fields[1], fields[2], fields[3]));
                     found = true;
                 }
             }
             if (found) {
-                Main.showSuccess("Client found.");
+                Main.showSuccess("Client(s) found.");
             } else {
                 Main.showAlert("No client found with that phone number.");
             }
@@ -98,4 +98,5 @@ public class TablePane {
             ex.printStackTrace();
         }
     }
+
 }
