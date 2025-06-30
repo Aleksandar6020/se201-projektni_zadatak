@@ -1,6 +1,7 @@
 package com.example.se201projektni_zadatakaleksandarrozkov6020;
 
 import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.AddPane;
+import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.EditPane;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Server;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -49,7 +50,7 @@ public class Main extends Application {
         scroll.setContent(welcomePane);
 
         addButton.setOnAction(e -> scroll.setContent(new AddPane().getPane()));
-        editButton.setOnAction(e -> System.out.println("Edit button clicked"));
+        editButton.setOnAction(e -> scroll.setContent(new EditPane().getPane()));
         searchButton.setOnAction(e -> System.out.println("Search button clicked"));
         tableButton.setOnAction(e -> System.out.println("Table button clicked"));
 
