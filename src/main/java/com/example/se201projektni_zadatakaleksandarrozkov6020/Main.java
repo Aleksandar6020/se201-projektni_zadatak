@@ -1,10 +1,12 @@
 package com.example.se201projektni_zadatakaleksandarrozkov6020;
 
+import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.AddPane;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Server;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
@@ -46,7 +48,7 @@ public class Main extends Application {
         welcomePane.setAlignment(Pos.CENTER);
         scroll.setContent(welcomePane);
 
-        addButton.setOnAction(e -> System.out.println("Add button clicked"));
+        addButton.setOnAction(e -> scroll.setContent(new AddPane().getPane()));
         editButton.setOnAction(e -> System.out.println("Edit button clicked"));
         searchButton.setOnAction(e -> System.out.println("Search button clicked"));
         tableButton.setOnAction(e -> System.out.println("Table button clicked"));
@@ -66,5 +68,20 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public static void showSuccess(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
