@@ -3,6 +3,7 @@ package com.example.se201projektni_zadatakaleksandarrozkov6020;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.AddPane;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.EditPane;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.SearchPane;
+import com.example.se201projektni_zadatakaleksandarrozkov6020.pane.TablePane;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Server;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -53,7 +54,7 @@ public class Main extends Application {
         addButton.setOnAction(e -> scroll.setContent(new AddPane().getPane()));
         editButton.setOnAction(e -> scroll.setContent(new EditPane().getPane()));
         searchButton.setOnAction(e -> scroll.setContent(new SearchPane().getPane()));
-        tableButton.setOnAction(e -> System.out.println("Table button clicked"));
+        tableButton.setOnAction(e -> scroll.setContent(new TablePane().getPane()));
 
         stage.setOnCloseRequest(e -> {
             try {
