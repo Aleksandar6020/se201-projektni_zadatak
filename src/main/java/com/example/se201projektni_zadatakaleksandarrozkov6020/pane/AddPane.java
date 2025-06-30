@@ -2,6 +2,7 @@ package com.example.se201projektni_zadatakaleksandarrozkov6020.pane;
 
 import com.example.se201projektni_zadatakaleksandarrozkov6020.Main;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Client;
+import com.example.se201projektni_zadatakaleksandarrozkov6020.system.ValidationHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -101,14 +102,15 @@ public class AddPane {
             Main.showAlert("Please fill in all client fields.");
             return;
         }
-        if (!phoneValue.startsWith("+")) {
-            Main.showAlert("Phone number must start with +.");
+        if (!ValidationHelper.isValidPhone(phoneValue)) {
+            Main.showAlert("Invalid phone number format.");
             return;
         }
-        if (!emailValue.contains("@")) {
-            Main.showAlert("Email must contain '@'.");
+        if (!ValidationHelper.isValidEmail(emailValue)) {
+            Main.showAlert("Invalid email format.");
             return;
         }
+
 
         nameValue = nameValue.substring(0, 1).toUpperCase() + nameValue.substring(1);
 
@@ -135,7 +137,7 @@ public class AddPane {
             Main.showAlert("Please fill in all real estate fields.");
             return;
         }
-        if (!areaValue.matches("\\d+(\\.\\d+)?") || !priceValue.matches("\\d+(\\.\\d+)?")) {
+        if (!ValidationHelper.isValidDecimal(areaValue) || !ValidationHelper.isValidDecimal(priceValue)) {
             Main.showAlert("Area and price must be numeric.");
             return;
         }
@@ -169,10 +171,11 @@ public class AddPane {
             Main.showAlert("Please fill in all wish fields.");
             return;
         }
-        if (!minBudgetValue.matches("\\d+(\\.\\d+)?") || !maxBudgetValue.matches("\\d+(\\.\\d+)?") || !minAreaValue.matches("\\d+(\\.\\d+)?")) {
+        if (!ValidationHelper.isValidDecimal(minBudgetValue) || !ValidationHelper.isValidDecimal(maxBudgetValue) || !ValidationHelper.isValidDecimal(minAreaValue)) {
             Main.showAlert("Min/Max budget and area must be numeric.");
             return;
         }
+
 
         String wishType = isSaleWish.isSelected() ? "sale" : "rent";
         String data = clientIdValue + "|||" + minBudgetValue + "|||" + maxBudgetValue

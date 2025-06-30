@@ -2,6 +2,7 @@ package com.example.se201projektni_zadatakaleksandarrozkov6020.pane;
 
 import com.example.se201projektni_zadatakaleksandarrozkov6020.Main;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Client;
+import com.example.se201projektni_zadatakaleksandarrozkov6020.system.ValidationHelper;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -58,12 +59,12 @@ public class EditPane {
             if (!nameVal.isEmpty()) {
                 nameVal = nameVal.substring(0, 1).toUpperCase() + nameVal.substring(1);
             }
-            if (!phoneVal.isEmpty() && !phoneVal.startsWith("+")) {
-                Main.showAlert("Phone number must start with '+'.");
+            if (!phoneVal.isEmpty() && !ValidationHelper.isValidPhone(phoneVal)) {
+                Main.showAlert("Invalid phone number format.");
                 return;
             }
-            if (!emailVal.isEmpty() && !emailVal.contains("@")) {
-                Main.showAlert("Email must contain '@'.");
+            if (!emailVal.isEmpty() && !ValidationHelper.isValidEmail(emailVal)) {
+                Main.showAlert("Invalid email format.");
                 return;
             }
 
@@ -118,6 +119,18 @@ public class EditPane {
         update.setOnAction(e -> {
             if (idField.getText().trim().isEmpty()) {
                 Main.showAlert("Wish ID is required.");
+                return;
+            }
+            if (!min.getText().isEmpty() && !ValidationHelper.isValidDecimal(min.getText())) {
+                Main.showAlert("Min budget must be a number.");
+                return;
+            }
+            if (!max.getText().isEmpty() && !ValidationHelper.isValidDecimal(max.getText())) {
+                Main.showAlert("Max budget must be a number.");
+                return;
+            }
+            if (!area.getText().isEmpty() && !ValidationHelper.isValidDecimal(area.getText())) {
+                Main.showAlert("Min area must be a number.");
                 return;
             }
             String wishType = sale.isSelected() ? "sale" : "rent";

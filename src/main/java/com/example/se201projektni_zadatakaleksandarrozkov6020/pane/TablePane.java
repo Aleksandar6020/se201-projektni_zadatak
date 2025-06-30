@@ -4,6 +4,7 @@ import com.example.se201projektni_zadatakaleksandarrozkov6020.Main;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.classes.ClientModel;
 import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Client;
 
+import com.example.se201projektni_zadatakaleksandarrozkov6020.system.ValidationHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -46,11 +47,12 @@ public class TablePane {
             if (phone.isEmpty()) {
                 loadAllClients();
                 Main.showSuccess("Loaded all clients.");
-            } else if (!phone.startsWith("+")) {
-                Main.showAlert("Phone number must start with '+'.");
+            } else if (!ValidationHelper.isValidPhone(phone)) {
+                Main.showAlert("Invalid phone number format.");
             } else {
                 loadClientByPhone(phone);
             }
+
         });
 
         loadAllClients();

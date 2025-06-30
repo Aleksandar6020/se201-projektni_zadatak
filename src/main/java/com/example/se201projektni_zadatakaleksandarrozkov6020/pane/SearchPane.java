@@ -47,6 +47,10 @@ public class SearchPane {
                 Main.showAlert("ID field cannot be empty.");
                 return;
             }
+            if (!id.matches("\\d+")) {
+                Main.showAlert("ID must be a numeric value.");
+                return;
+            }
             if (buyerRadio.isSelected()) {
                 searchForBuyer(id);
             } else {
