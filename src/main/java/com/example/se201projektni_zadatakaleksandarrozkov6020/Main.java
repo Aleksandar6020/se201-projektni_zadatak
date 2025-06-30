@@ -1,5 +1,6 @@
 package com.example.se201projektni_zadatakaleksandarrozkov6020;
 
+import com.example.se201projektni_zadatakaleksandarrozkov6020.server.Server;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        Server.startServer();
         BorderPane mainPane = new BorderPane();
 
         Button addButton = new Button("Add");
@@ -48,6 +50,14 @@ public class Main extends Application {
         editButton.setOnAction(e -> System.out.println("Edit button clicked"));
         searchButton.setOnAction(e -> System.out.println("Search button clicked"));
         tableButton.setOnAction(e -> System.out.println("Table button clicked"));
+
+        stage.setOnCloseRequest(e -> {
+            try {
+                Server.stopServer();
+            } catch (Exception ex) {
+                System.out.println("Error stopping server: " + ex.getMessage());
+            }
+        });
 
         stage.setScene(new Scene(mainPane, 820, 840));
         stage.setTitle("Real Estate App");
