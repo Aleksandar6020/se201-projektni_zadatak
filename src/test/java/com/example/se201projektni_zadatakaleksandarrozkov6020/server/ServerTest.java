@@ -13,14 +13,14 @@ class ServerTest {
     void testStartAndStopServer() {
         try {
             Server.startServer();
-            Thread.sleep(300); // даём немного времени на запуск
+            Thread.sleep(300);
 
             Socket socket = new Socket("localhost", 5000);
             assertTrue(socket.isConnected());
             socket.close();
 
             Server.stopServer();
-            Thread.sleep(100); // чуть подождать остановки
+            Thread.sleep(100);
 
             assertThrows(IOException.class, () -> new Socket("localhost", 5000));
 

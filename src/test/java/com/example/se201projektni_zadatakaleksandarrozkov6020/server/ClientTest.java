@@ -10,7 +10,7 @@ class ClientTest {
     @BeforeAll
     static void setup() throws InterruptedException {
         Server.startServer();
-        Thread.sleep(300); // даём серверу запуститься
+        Thread.sleep(300);
     }
 
     @Test
@@ -25,7 +25,6 @@ class ClientTest {
         String readResult = Client.Read("client");
         assertTrue(readResult.contains(name), "Client not found in DB");
 
-        // Удаляем по client_id, а не по name (надежнее)
         String clientId = createResult.substring(3).trim();
         String deleteResult = Client.Delete("client", "client_id", clientId);
         assertEquals("DELETE is ok", deleteResult);
