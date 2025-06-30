@@ -84,7 +84,7 @@ public class TablePane {
             boolean found = false;
             for (String row : response.split("###")) {
                 String[] fields = row.split("\\|\\|\\|");
-                if (fields.length >= 4 && fields[3].equals(phone)) {
+                if (fields.length >= 4 && fields[2].equals(phone)) {
                     clientList.add(new ClientModel(fields[0], fields[1], fields[2], fields[3]));
                     found = true;
                 }
