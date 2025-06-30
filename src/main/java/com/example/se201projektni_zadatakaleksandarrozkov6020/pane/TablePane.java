@@ -47,8 +47,6 @@ public class TablePane {
             if (phone.isEmpty()) {
                 loadAllClients();
                 Main.showSuccess("Loaded all clients.");
-            } else if (!ValidationHelper.isValidPhone(phone)) {
-                Main.showAlert("Invalid phone number format.");
             } else {
                 loadClientByPhone(phone);
             }
