@@ -202,7 +202,7 @@ public class Server {
 
     private static String Update(String req) {
         try {
-            String[] data = req.split("\\|\\|\\|");
+            String[] data = req.split("\\|\\|\\|", -1);
             String table = data[0];
             String need = data[1];
 
